@@ -2,6 +2,7 @@
 const redDoor = document.querySelector("#btn-orange-img")
 const greyDoor = document.querySelector("#btn-grey-img")
 const cyanDoor = document.querySelector("#btn-cyan-img")
+const reloadButton = document.querySelector("#reload")
 const output = document.querySelector("#output")
 
 let images = ["images/candy.png", "images/zombie.png", "images/zombie.png"]
@@ -25,6 +26,10 @@ cyanDoor.onclick = function(e) {
   changeImage(cyanDoor, 2)
 }
 
+reloadButton.onclick = function(e) {
+  location.reload();
+}
+
 function changeImage(element, index) {
   element.src = images[index]
   if (images[index] == "images/candy.png") {
@@ -34,15 +39,5 @@ function changeImage(element, index) {
   }
 }
 
-document.querySelector("#btn-orange").onclick = function(e) {
-  redDoor.src = images[0]
-}
 
-document.querySelector("#btn-grey").onclick = function(e) {
-  greyDoor.src = images[1]
-}
-
-document.querySelector("#btn-cyan").onclick = function(e) {
-  cyanDoor.src = images[2]
-}
 
