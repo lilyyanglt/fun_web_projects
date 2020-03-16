@@ -1,0 +1,88 @@
+<form action="" method="POST" class="mb-6">
+  <div class="row mt-5">
+      <div class="col-md-6 m-auto">
+
+        <div class="card card-body text-center">
+
+                  <div class="form-group">Create account</div>
+                      
+                      <%- include('partials/messages'); %>
+
+                      <form method="POST" action="/account/create_account">
+                            <div class="form-group">   
+                                <input 
+                                type="username" 
+                                name="username" 
+                                class="form-control" 
+                                id="username" 
+                                placeholder="Enter username"
+                                value="<%= typeof username != 'undefined' ? username : ''%>"
+                                >
+                            </div> 
+
+                            <div class="form-group">  
+                              <input 
+                              type="email" 
+                              name="email" 
+                              class="form-control" 
+                              id="email" 
+                              placeholder="Enter E-mail"
+                              value="<%= typeof email != 'undefined' ? email : ''%>"
+                              >
+                            </div>
+
+                            <div class="form-group">  
+                                <input 
+                                type="password" 
+                                name="password" 
+                                class="form-control" 
+                                id="password" 
+                                placeholder="Enter password"
+                                value="<%= typeof password != 'undefined' ? password : ''%>"
+                                >
+                            </div>
+
+                           
+                            <div class="form-group">  
+                                <input 
+                                type="password" 
+                                name="password2"
+                                class="form-control" 
+                                id="password2" 
+                                placeholder="Confirm password"
+                                value="<%= typeof password2 != 'undefined' ? password2 : ''%>"
+                                >
+                            </div>
+                      
+                      
+                          <div class="form-group">
+                            <div class="col-sm-9 m-auto">
+                              <a href="/"> 
+                                <button type="button" name="back" value="back" class="btn btn-primary" id="back">Back To Login</button>
+                              </a>
+                              <button 
+                              type="submit" 
+                              class="btn btn-primary">
+                              Create
+                            </button>
+                            </div>
+                          </div>
+                        </form>
+                
+                      <div class="form-group">
+                        <p>Or Create Using Social Media</p>
+                        <div id="pictures">
+                          <!-- <a href="https://www.github.com"><img src="assets/github_icon.png" width="40px" height="40px" alt="github" class="picture" id="github"></a>
+                          <a href="https://www.twitter.com"><img src="assets/twitter_icon.png" width="40px" height="40px" alt="twitter" class="picture" id="twitter"></a>
+                          <a href="https://www.gmail.com"><img src="assets/gmail.png" width="40px" height="40px" alt="gmail" class="picture" id="gmail"></a> -->
+
+                          <i class="fab fa-github"></i>
+                          <i class="fab fa-twitter"></i>
+                        </div>
+                      </div>
+              
+        </div>
+
+      </div>
+    </div>
+  </form>

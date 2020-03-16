@@ -1,0 +1,118 @@
+/* html rules 
+--------------*/
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    line-height: 1;
+    margin: 0;
+    padding-top: 30px;
+}
+
+p{
+    font-size: 13px;
+}
+
+
+
+
+/* id rules 
+--------------*/
+#username{
+    background: url(../assets/user_icon.png) no-repeat 0;
+    background-size: 10%;
+    background-position: 30px;
+}
+
+#password{
+    background: url(../assets/lock_icon.png) no-repeat 0 ;
+    background-size: 10%;
+    background-position: 30px;
+}
+
+#email{
+    background: url(../assets/email_icon.png) no-repeat 0 ;
+    background-size: 10%;
+    background-position: 30px;
+}
+
+#mobile{
+    background: url(../assets/phone_icon.png) no-repeat 0;
+    background-size: 10%;
+    background-position: 30px;
+}
+
+#back{
+    margin-right: 110px;
+}
+
+#github{
+    margin-right: 38px;
+}
+
+#gmail{
+    margin-left: 38px;  
+}
+/* class rules 
+--------------*/
+
+.page{
+    position: absolute;
+    top: 10.9375vh;
+    left: 30vw;
+    
+    height: 800px;
+    width: 562px;
+
+    background: #FFFFFF;
+    box-shadow: 0px 4px 20px #E5E5E5;
+    text-align: center;
+    font-family: 'Lucida Sans', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+}
+
+.create{
+    position: absolute;
+    top: 13.867%;
+    left: 27%;
+    text-align: center;
+
+    font-size: 40px;
+    line-height: 40px;
+
+    color: #000000;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.input{
+    border-radius: 50px;
+    padding-left: 95px;
+    height: 53px;
+    width: 267px;
+    
+    font-size: 24px;
+    line-height: 24px;
+}
+
+.inputs{
+    line-height: 4;
+    position: absolute;
+    left: 20%;
+    top: 25%;
+}
+
+.socialMedia{
+    position: absolute;
+    left: 33.5%;
+    top: 75%;
+}
+
+.button{
+    height: 45px;
+    width: 103px;
+    padding:8px;
+    font-size: 13px;
+    color: white;
+    border-radius: 20px;
+    background-color: steelblue;
+}
