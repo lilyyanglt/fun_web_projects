@@ -35,9 +35,13 @@
       <input class="form-control mr-sm-2" type="search" placeholder="Search your reminders" aria-label="Search">
     </form>
     
-        <button placeholder="Add reminder" class="btn btn-secondary">Add Reminder</button>
+        <button placeholder="Add reminder" class="btn btn-secondary" onclick="toggle_visibility('myModal')">Add Reminder</button>
     </div>
   
     <!-- INCLUDE PARTIALS FROM REMINDERITEMS - NEED TO CORRECT ERROR -->
   
+    <!-- CONTACT MODAL -->
+    <div class="popup-position" id="contact-popup">
+      <% include('./partials/modal'); %>
+    </div>
   </div>

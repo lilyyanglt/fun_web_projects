@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
+const sass = require('node-sass');
 
 // ********************** INITIALIZE WEB SERVER *********************
 const app = express();
@@ -25,6 +26,10 @@ mongoose.connect(db, { useUnifiedTopology: true,
                        useNewUrlParser: true })
 .then(() => console.log("MongoDB connected"))
 .catch((error) => console.error(error));
+
+// ********************* SASS MIDDLEWARE FOR RENDERING SASS FILES *****
+
+// CODE TO BE ADDED
 
 // ********************* REGISTRATION AND LOGIN ***********************
 // because we have a form, we need to use body parser middleware from 
@@ -81,7 +86,7 @@ app.use(ejsLayouts);
 app.set('view engine', 'ejs');
 
 // ********************* USING STATIC STYLE SHEETS *******************
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 
 
 // ********************** SET UP THE PORT *****************************
