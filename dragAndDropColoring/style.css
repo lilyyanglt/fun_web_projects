@@ -11,7 +11,6 @@
 }
 
 body {
-  margin-top: 2em;
   width: 100vw;
   min-height: 100vh;
   display: flex;
@@ -21,43 +20,21 @@ body {
 /* COLOR SECTION */
 
 #colors {
+  padding-top: 2em;
   position: absolute;
   display: flex;
   min-width: 100vw;
   justify-content: space-evenly;
 }
 
-#color_1, #color_2, #color_3, #color_4,
-#color_5, #color_6 {
+.circle {
   width: var(--circle-width);
   height: var(--cirle-height);
   border-radius: var(--radius);
   box-shadow: lightslategray;
 }
 
-#color_1 {
-  background-color: green;
-}
-
-#color_2 {
-  background-color: royalblue;
-}
-
-#color_3 {
-  background-color: pink;
-}
-
-#color_4 {
-  background-color: turquoise;
-}
-
-#color_5 {
-  background-color: teal;
-}
-
-#color_6 {
-  background-color: tomato;
-}
+/* desktop color section */
 
 @media all and (min-width: 450px) {
   body {
@@ -75,8 +52,8 @@ body {
 
 }
 
-/* COLORING AREA */
-#painting_area {
+/* ANIMAL CSS */
+#painting-area{
   width: 20em;
   height: 30em;
   border: 1px solid lightblue;

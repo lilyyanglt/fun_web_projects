@@ -1,12 +1,12 @@
-const canvas = document.getElementById('painting_area');
+const canvas = document.getElementById('painting-area');
+const circles = document.querySelectorAll('.circle');
 
-document.getElementById('color_1').ondragstart = function(e) {
-  console.log(e.target.id);
-  console.log(this);
-  e.dataTransfer.setData('application/my-app', e.target.id);
-  e.dataTransfer.dropEffect = 'copy';
+for(const div of circles) {
+  div.ondragstart = function(e) {
+    e.dataTransfer.setData('text/plain', e.target.style.backgroundColor);
+    e.dataTransfer.dropEffect = 'copy';
+  }
 }
-
 canvas.ondragover = function(e) {
   e.preventDefault();
   e.dataTransfer.dropEffect = 'copy'; 
@@ -14,8 +14,8 @@ canvas.ondragover = function(e) {
 
 canvas.ondrop = function(e) {
   e.preventDefault();
-  const data = e.dataTransfer.getData('application/my-app');
-  const newNode = document.getElementById(data).cloneNode(true);
-  e.target.appendChild(newNode);
+  const data = e.dataTransfer.getData('text');
+  e.target.style.backgroundColor = data;
+  e.target.style.border = "none";
 }
 
