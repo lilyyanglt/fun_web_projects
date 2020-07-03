@@ -1,0 +1,42 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+margin: 10px;
+}
+
+/* SOURCE: https://www.w3schools.com/css/tryit.asp?filename=trycss_forms */
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+#buttons-area {
+  text-align: center;
+}
+
+/* SOURCE: https://emilkowalski.github.io/css-effects-snippets/*/
+.depthButton {
+  height: 35px;
+  margin: 10px;
+  line-height: 20px;
+  padding: 0 20px;
+  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+  background: #fff;
+  border-radius: 4px;
+  transition: all .3s ease;
+}
+
+.depthButton:hover {
+  color: #5778F3;
+  transform: translateY(-1px);
+  box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
+}

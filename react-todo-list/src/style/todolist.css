@@ -1,0 +1,14 @@
+#todoList {
+width: 50%;
+margin: 0 auto;
+}
+
+#todoList > li{
+  list-style-type: none;
+  background-color: #555;
+  border-radius: 50px;
+  padding: 1em;
+  margin-bottom: 1em;
+  text-align: center;
+  color: white;
+}
