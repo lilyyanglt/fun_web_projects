@@ -13,6 +13,7 @@ class SubmitForm extends React.Component {
     e.preventDefault();
     if(this.state.text.length === 0) return;
     this.props.onSubmit(this.state.text);
+    this.setState({text: ''});
   }
 
   render() {
@@ -24,8 +25,7 @@ class SubmitForm extends React.Component {
               placeholder="Enter to-do item..."
             />
             <div id="buttons-area">
-              <button className="depthButton"
-                onClick={this.handleSubmit}>Add</button>
+              <button className="depthButton">Add</button>
             </div>
       </form>
     )
