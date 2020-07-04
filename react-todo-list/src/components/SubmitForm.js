@@ -24,9 +24,7 @@ class SubmitForm extends React.Component {
               value={this.state.text}
               placeholder="Enter to-do item..."
             />
-            <div id="buttons-area">
-              <button className="depthButton">Add</button>
-            </div>
+            <button className="depthButton">Add</button>
       </form>
     )
   }

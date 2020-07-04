@@ -1,9 +1,10 @@
 import React from 'react';
+import '../style/todolist.css'
 
 function Todo(props) {
   return (
-    <div>{props.content}
-    <span onClick={() => props.onDelete(props.id)}>Delete</span>
+    <div className="list-item">{props.content}
+    <span className="delete" onClick={() => props.onDelete(props.id)}>&times;</span>
     </div>
   )
 }
