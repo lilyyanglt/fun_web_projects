@@ -6,37 +6,29 @@ import Header from "./components/Header";
 import SubmitForm from "./components/SubmitForm";
 
 class ToDoApp extends React.Component {
-  state = {items: [], text: ""}
+  state = {items: ['task 1', 'task 2', 'task 3'], text: ""}
   
   handleSubmit = (newTask) => {
    const newArr = [...this.state.items, newTask];
    this.setState({items: newArr});
   }
 
-  handleDelete = (e) => {
-    const originalItems = this.state.items;
-    let matched = false;
-
-    originalItems.forEach(items => {
-      if (items === this.state.text) {
-        matched = true;
-      }
-    })
-
-      if (matched) {
-        const updatedItems = this.state.items.filter(item => item !== this.state.text)
-        this.setState({items: updatedItems, text: ''})
-      } else {
-        this.setState({error: "nothing matched to delete"})
-      }
-    }
+  /**
+   * @param index - the index of item to be deleted
+   */
+  handleDelete = (index) => {
+    const newArr = [...this.state.items]
+    // removes the item in that index
+    newArr.splice(index,1)
+    this.setState({items: newArr});
+  }
 
   render() {
     return (
       <main>
           <Header />
           <SubmitForm onSubmit={this.handleSubmit}/>
-          <ToDoList items={this.state.items}/>
+          <ToDoList items={this.state.items} onDelete={this.handleDelete}/>
           <Footer />
       </main>
     )
