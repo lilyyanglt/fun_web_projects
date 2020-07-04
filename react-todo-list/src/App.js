@@ -6,7 +6,7 @@ import Header from "./components/Header";
 import SubmitForm from "./components/SubmitForm";
 
 class ToDoApp extends React.Component {
-  state = {items: ['task 1', 'task 2', 'task 3'], text: ""}
+  state = {items: [], text: ""}
   
   handleSubmit = (newTask) => {
    const newArr = [...this.state.items, newTask];
@@ -27,8 +27,10 @@ class ToDoApp extends React.Component {
     return (
       <main>
           <Header />
-          <SubmitForm onSubmit={this.handleSubmit}/>
-          <ToDoList items={this.state.items} onDelete={this.handleDelete}/>
+          <section>
+            <SubmitForm onSubmit={this.handleSubmit}/>
+            <ToDoList items={this.state.items} onDelete={this.handleDelete}/>
+          </section>
           <Footer />
       </main>
     )
