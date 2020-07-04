@@ -8,21 +8,6 @@ main {
 margin: 10px;
 }
 
-/* SOURCE: https://www.w3schools.com/css/tryit.asp?filename=trycss_forms */
-input[type=text], select {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-#buttons-area {
-  text-align: center;
-}
-
 /* SOURCE: https://emilkowalski.github.io/css-effects-snippets/*/
 .depthButton {
   height: 35px;

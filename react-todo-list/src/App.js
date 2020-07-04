@@ -2,24 +2,15 @@ import React from "react";
 import './style/main.css';
 import ToDoList from "./components/ToDoList";
 import Footer from "./components/Footer";
-import Error from "./components/Error";
 import Header from "./components/Header";
+import SubmitForm from "./components/SubmitForm";
 
 class ToDoApp extends React.Component {
-  state = {items: [], text: "", error: ""}
-
-  handleChange = (e) => {
-    this.setState({text: e.target.value})
-  }
+  state = {items: [], text: ""}
   
-  handleSubmit = (e) => {
-    if (this.state.text.length === 0) return;
-
-    const item = this.state.text;
-
-    this.setState(state => {
-      return {items: state.items.concat(item), text: ""}
-    });
+  handleSubmit = (newTask) => {
+   const newArr = [...this.state.items, newTask];
+   this.setState({items: newArr});
   }
 
   handleDelete = (e) => {
@@ -44,23 +35,9 @@ class ToDoApp extends React.Component {
     return (
       <main>
           <Header />
-          <div id="input-area">
-            <input type="text" 
-              onChange={this.handleChange}
-              value={this.state.text}
-              placeholder="Enter to-do item..."
-            />
-            <div id="buttons-area">
-              <button className="depthButton"
-                onClick={this.handleSubmit}>Add</button>
-              <button className="depthButton"
-                onClick={this.handleDelete}>Delete</button>
-            </div>
-          </div>
-          <Error message={this.state.error}/>
+          <SubmitForm onSubmit={this.handleSubmit}/>
           <ToDoList items={this.state.items}/>
-
-        <Footer />
+          <Footer />
       </main>
     )
   }
