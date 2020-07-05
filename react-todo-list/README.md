@@ -5,7 +5,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Demo
 
-![react demo](./src/gifs/react-to-do-demo.gif)
+![react demo](../util/gifs/react-to-do-demo.gif)
 
 ## Available Scripts
 
