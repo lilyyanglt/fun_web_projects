@@ -1,9 +1,6 @@
 import React from "react";
 import './style/main.css';
-import ToDoList from "./components/ToDoList";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import SubmitForm from "./components/SubmitForm";
+import { ToDoList, Header, SubmitForm, Footer } from './components/index'
 
 class ToDoApp extends React.Component {
   state = {items: [], text: ""}
