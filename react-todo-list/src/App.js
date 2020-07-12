@@ -3,11 +3,12 @@ import './style/main.css';
 import { ToDoList, Header, SubmitForm, Footer } from './components/index'
 
 class ToDoApp extends React.Component {
-  state = {items: [], text: ""}
+  state = {items: [], text: ''}
   
-  handleSubmit = (newTask) => {
+  handleSubmit = (e, newTask) => {
+    e.preventDefault();
    const newArr = [...this.state.items, newTask];
-   this.setState({items: newArr});
+   this.setState({items: newArr, text: ''});
   }
 
   /**
@@ -20,12 +21,19 @@ class ToDoApp extends React.Component {
     this.setState({items: newArr});
   }
 
+  handleChange = (value) => {
+    this.setState({...this.state, text: value})
+  }
+
   render() {
     return (
       <main>
           <Header />
           <section>
-            <SubmitForm onSubmit={this.handleSubmit}/>
+            <SubmitForm 
+            onSubmit={this.handleSubmit}
+            onInputChange={this.handleChange}
+            term={this.state.text}/>
             <ToDoList items={this.state.items} onDelete={this.handleDelete}/>
           </section>
           <Footer />
