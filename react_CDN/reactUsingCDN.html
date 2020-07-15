@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    
+    <!-- Don't use this in production: -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+    /******************** CONSTANTS AND VARIABLES ********************/
+      const API_ENDPOINT = 'https://hn.algolia.com/api/v1/search?query=';
+
+    /************************ CUSTOM HOOK ****************************/
+      const useSemiPersistentState = (key, initialState) => {
+        
+        const isMounted = React.useRef(false);
+        console.log("Before useState is called")
+        console.log(isMounted.current);
+        console.log("---------------------------")
+
+        const [value, setValue] = React.useState(
+          localStorage.getItem(key) || initialState
+        );
+
+        React.useEffect(() => {
+
+          if(!isMounted.current) {
+            isMounted.current = true;
+            console.log("App use effect is called but localStorage part is not called yet")
+            console.log(isMounted.current);
+            console.log("--------------------")
+          } else {
+            console.log("LocalStorage useEffect called - main app");
+            console.log("----------------------------------------")
+            localStorage.setItem(key, value);
+          }
+        }, [value, key]);
+
+        return [value, setValue];
+      };
+
+    /********************* REDUCER FOR MANAGING COMPLEX STATE*********/
+      const storiesReducer = (state, action) => {
+        switch (action.type) {
+          case 'STORIES_FETCH_INIT':
+            return {
+              ...state,
+              isLoading: true,
+              isError: false,
+            };
+          case 'STORIES_FETCH_SUCCESS':
+            return {
+              ...state,
+              isLoading: false,
+              isError: false,
+              data: action.payload,
+            };
+          case 'STORIES_FETCH_FAILURE':
+            return {
+              ...state,
+              isLoading: false,
+              isError: true,
+            };
+          case 'REMOVE_STORY':
+            return {
+              ...state,
+              data: state.data.filter(
+                story => action.payload.objectID !== story.objectID
+              ),
+            };
+          default:
+            throw new Error();
+        }
+      };
+
+      const options = ['title', 'author', 'points', 'num_comments'];
+
+      /*********************************** APP COMPONENT **********/
+      const App = () => {
+        console.log("App function is called")
+        console.log("------------------------")
+
+        //---------------------- STATE OF MAIN APP --------------- /
+        const [searchTerm, setSearchTerm] = useSemiPersistentState(
+          'search',
+          ''
+        );
+
+        const [filter, setFilter] = React.useState('title')
+  
+        const [stories, dispatchStories] = React.useReducer(
+          storiesReducer,
+          { data: [], isLoading: false, isError: false }
+        );
+
+        const [url, setUrl] = React.useState(`${API_ENDPOINT}${searchTerm}`);
+
+        // -------------------- HANDLER OF MAIN APP ------------------- / 
+        const fetchAPI = React.useCallback(async () => {
+          console.log("App fetch API called")
+          console.log("-------------------------")
+
+          dispatchStories({ type: 'STORIES_FETCH_INIT' });
+
+          try {
+            const result = await axios.get(url);
+              dispatchStories({
+                type: 'STORIES_FETCH_SUCCESS',
+                payload: result.data.hits,
+              });
+        } catch {
+              dispatchStories({ type: 'STORIES_FETCH_FAILURE' })
+        }}, [url]);
+
+        React.useEffect(() => {
+          console.log("App useEffect called")
+          console.log("fetching data side-effect");
+          console.log("-------------------------")
+
+          fetchAPI();
+        }, [fetchAPI]);
+
+        const handleRemoveStory = React.useCallback((item) => {
+          console.log("handleRemoveStory is called");
+          console.log("----------------------------");
+          dispatchStories({
+            type: 'REMOVE_STORY',
+            payload: item,
+          });
+        }, []);
+
+        const handleSearch = event => {
+          console.log("handling search update");
+          console.log("-----------------------")
+          setSearchTerm(event.target.value);
+        };
+
+        const handleUrlUpdate = event => {
+          setUrl(`${API}${searchTerm}`);
+        }
+
+        const handleSelectChange = target => {
+          setFilter(target.options[target.selectedIndex].value);
+          console.log(target.options);
+          console.log(target.selectedIndex);
+        }
+
+        return (
+          <div className="container">
+            <h1 className="title is-1">My Hacker Stories</h1>
+
+            <SearchForm 
+            term={searchTerm}
+            onSubmit={handleUrlUpdate}
+            onInputChange={handleSearch} />
+            <hr />
+        
+            <Filter 
+            filter={filter}
+            onSelectionChange={handleSelectChange}>Filter By: </Filter>
+
+            {stories.isError && <p>Something went wrong ...</p>}
+
+            {stories.isLoading ? (
+              <p>Loading ...</p>
+            ) : (
+              <ResultsTable 
+              list={stories.data} 
+              onRemoveItem={handleRemoveStory}
+              filter={filter} />
+            )}
+          </div>
+        );
+      };
+      /********* SEARCH FORM *************************************/
+
+      const SearchForm = ({
+        handleUrlUpdate, 
+        term, 
+        onInputChange}) => {
+        
+        console.log("InputWithLabel gets called");
+        console.log("-------------------------");
+        
+        return (
+          <form onSubmit={handleUrlUpdate}>
+            <div className="control is-grouped">
+            <p className="control is-expanded" style={{textAlign: "center"}}>
+              <input
+                className="input"
+                id="search"
+                value={term}
+                type="text"
+                onChange={(e) => onInputChange(e)}
+              />
+              </p>
+              <p className="control">
+                <button className="button is-primary" style={{display: "inline"}}>Search</button>
+              </p>
+            </div>
+          </form>
+        )
+      };
+
+      /* FILTER COMPONENT */
+
+      const Filter = ({filter, onSelectionChange}) => {
+        
+        console.log(filter);
+
+        return (
+          <div className="select is-rounded">
+            <label htmlFor='filtering' className="label" style={{display: "inline"}}>Filter by:</label>
+            <select 
+              id="filtering"
+              name='filtering' 
+              onChange={(e) => onSelectionChange(e.target)}>
+              {options.map((option, index) => <option key={index}>{option}</option>)}
+            </select>
+          </div>
+        )
+      }
+
+      /************************ LIST COMPONENT ******/
+      const ResultsTable = React.memo(({list, onRemoveItem, filter}) => {
+        console.log("calling list function");
+        console.log(filter);
+        
+          list.sort((a, b) => {
+          return (a[`${filter}`] > b[`${filter}`]) ? 1 : -1
+          })
+  
+
+        return (
+          <table className="table is-striped is-fullwidth">
+            <tr>
+              <th>Title</th>
+              <th>Author</th>
+              <th># of Comments</th>
+              <th> Points</th>
+            </tr>
+          {list.map(item => (
+            <Item
+            key={item.objectID}
+            item={item}
+            onRemoveItem={onRemoveItem}
+            />
+          ))
+          }
+          </table>
+        )
+      })
+
+       /************************ ITEM COMPONENT  ******/
+      const Item = ({ item }) => {
+        return (
+        <tr>
+          <td>
+            <a href={item.url}>{item.title}</a>
+          </td>
+          <td style={{width: "10%"}}>{item.author}</td>
+          <td style={{width: "10%"}}>{item.num_comments}</td>
+          <td style={{width: "10%"}}>{item.points}</td>
+        </tr>
+      )};
+
+      ReactDOM.render(<App />, document.getElementById('root'))
+    
+    </script>
+  </body>
+</html>
